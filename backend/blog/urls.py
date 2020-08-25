@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import index, BlogViewSet
+from .views import index, BlogViewSet, BlogList
+
 router = DefaultRouter()
 router.register('blog', BlogViewSet)
 
 urlpatterns = [
-	path('', index, name='Index'),
-	path('api/', include(router.urls)),
+    path('', index, name='Index'),
+    path('blog/', BlogList.as_view(), name='BlogList'),
+    path('api/', include(router.urls)),
 ]
