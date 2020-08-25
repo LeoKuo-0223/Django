@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Blog
 from django.views.generic import ListView, CreateView, UpdateView
 from rest_framework.viewsets import ModelViewSet
@@ -22,7 +23,7 @@ class BlogList(ListView):  # Add
     template_name = 'blogList.html'  # Add
 
 
-class BlogCreate(CreateView):  # Add
+class BlogCreate(LoginRequiredMixin, CreateView):  # Add
     model = Blog  # Add
     fields = '__all__'  # Add
     template_name = 'form.html'  # Add
@@ -31,7 +32,7 @@ class BlogCreate(CreateView):  # Add
         return reverse('BlogList')  # Add
 
 
-class BlogUpdate(UpdateView):  # Add
+class BlogUpdate(LoginRequiredMixin, UpdateView):  # Add
     model = Blog  # Add
     fields = '__all__'  # Add
     template_name = 'form.html'  # Add
