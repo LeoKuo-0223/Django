@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from .models import Blog
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from rest_framework.viewsets import ModelViewSet
 from .serializers import BlogSerializer
 
@@ -23,6 +23,15 @@ class BlogList(ListView):  # Add
 
 
 class BlogCreate(CreateView):  # Add
+    model = Blog  # Add
+    fields = '__all__'  # Add
+    template_name = 'form.html'  # Add
+
+    def get_success_url(self):  # Add
+        return reverse('BlogList')  # Add
+
+
+class BlogUpdate(UpdateView):  # Add
     model = Blog  # Add
     fields = '__all__'  # Add
     template_name = 'form.html'  # Add
